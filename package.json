@@ -2,7 +2,7 @@
   "name": "miguel",
   "version": "1.0.0",
   "scripts": {
-    "build": "rm -Rf tmp/* && babel src -d tmp && uglifyjs tmp/*.js tmp/**/*.js -o miguel.js --source-map miguel.js.map -b"
+    "build": "rm -Rf tmp/* && babel src -d tmp && uglifyjs lib/phaser.js tmp/states/player.js tmp/*.js tmp/**/*.js -o miguel.js --source-map miguel.js.map -b"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

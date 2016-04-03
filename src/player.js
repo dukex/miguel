@@ -28,16 +28,17 @@ class Player {
 
   create() {
     this._player = this.game.add.sprite(this.game.world.height / 2, 0, 'miguel');
-    this.game.physics.arcade.enable(this._player);
+    const player = this._player;
+    this.game.physics.arcade.enable(player);
 
+    player.body.bounce.y = 0;
+    player.body.gravity.y = 600;
+    player.body.collideWorldBounds = true;
 
-    this._player.body.bounce.y = 0;
-    this._player.body.gravity.y = 600;
-    this._player.body.collideWorldBounds = true;
-
-    this._player.animations.add('walk', this.moviment('walk'), 10, true);
-    this._player.animations.add('jump', this.moviment('jump'), 10, true);
-    this._player.animations.add('idle', this.moviment('idle'), 1, true);
+    player.animations.add('walk', this.moviment('walk'), 10, true);
+    player.animations.add('jump', this.moviment('jump'), 10, true);
+    player.animations.add('idle', this.moviment('idle'), 1, true);
+    player.animations.play('idle');
   }
 
   __jumpping() {
