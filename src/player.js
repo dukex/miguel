@@ -23,6 +23,8 @@ class Player {
     player.animations.add('idle', Phaser.Animation.generateFrameNames('idle/', 0, 3, '.png', 1), 10, true, false);
     player.animations.add('jump', Phaser.Animation.generateFrameNames('jump/', 0, 3, '.png', 1), 10, true, false);
     player.animations.play('idle', 2, true);
+
+    this.game.camera.follow(player);
   }
 
   __jumpping() {
@@ -36,23 +38,25 @@ class Player {
   update() {
     const player = this.character;
     const cursors = this.game.input.keyboard.createCursorKeys();
+    const walking = cursors.left.isDown || cursors.right.isDown
+
 
     player.body.velocity.x = 0;
 
-    if(cursors.left.isDown || cursors.right.isDown) {
+    if(walking) {
       this.__flip(cursors.right.isDown)
-      player.body.velocity.x = cursors.right.isDown ? 150 : -150;
-      !this.__jumpping() && player.animations.play('walk', 15, true);
+      !this.__jumpping() && player.animations.play('walk', 10, true);
     }
 
     if (cursors.up.isDown && !this.__jumpping()) {
-      player.animations.stop();
+      player.body.velocity.y = -200;
       player.animations.play('jump', 3, false);
-      player.body.velocity.y = -400;
+    } else if (cursors.down.isDown && !this.__jumpping() && !walking) {
+      player.animations.play('squat');
     }
 
-    if(!(this.__jumpping() || cursors.up.isDown || cursors.right.isDown || cursors.left.isDown)) {
-      player.animations.play('idle');
+    if(!(this.__jumpping() || cursors.down.isDown || cursors.up.isDown || walking)) {
+      player.animations.play('idle', 2, true);
     }
   }
 }
