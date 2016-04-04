@@ -12,23 +12,6 @@ class GoSchoolState extends PlayerState {
     this.trees      = this.game.add.tileSprite(0,0,1920, 1080, '2_trees');
     this.street     = this.game.add.tileSprite(0,0,1920, 239, '1_street');
 
-    //here we add two tile sprites with parameters(locationX, locationY, width, height, key)
-    // this.wall = this.game.add.tileSprite(0, 0, 1026, 418, '/bg_wall.png');
-    // this.character = mt.create("character");
-    // this.grass = this.game.add.tileSprite(0, 390, 1026, 215, '/grass_tile.png');
-
-    // this.cursors = this.game.input.keyboard.createCursorKeys();
-
-    // this.character.animations.add('stand', [0, 1, 2, 3], 10, true);
-    // this.character.animations.add('run', [6, 7, 8, 9, 10, 11], 10, true);
-    // this.character.animations.play('stand');
-
-    //
-    var scale = this.game.rnd.realInRange(0.5, 1);
-		//newobj.scale.x = scale;
-		//newobj.scale.y = scale;
-		//newobj.health = scale; // for sorting
-
     const ratio = this.scaleImage(this.background)
     this.scaleImage(this.sky)
     this.scaleImage(this.building1)
@@ -38,14 +21,11 @@ class GoSchoolState extends PlayerState {
     this.scaleImage(this.trees)
     this.scaleImage(this.street, ratio);
     this.street.y = this.game.height-MiguelGame.GROUND_HEIGHT();
-    console.log(this.street.height)
 
     this.game.physics.arcade.enable(this.street);
     this.street.body.immovable = true;
-    //this.street.body.allowGravity = false;
 
     super.create();
-
 
     this.game.camera.follow(this.character);
   }
@@ -67,12 +47,12 @@ class GoSchoolState extends PlayerState {
     const direction =(this.cursors.left.isDown ? 1 : -1)
 
     if (walking) {
-      this.sky.tilePosition.x       += direction * 0.25;
-      this.building1.tilePosition.x += direction * this.player.velocity()/6;
-      this.building2.tilePosition.x += direction * this.player.velocity()/5;
-      this.building3.tilePosition.x += direction * this.player.velocity()/4;
-      this.building4.tilePosition.x += direction * this.player.velocity()/3;
-      this.trees.tilePosition.x     += direction * this.player.velocity()/2;
+      this.sky.tilePosition.x       += direction * 0.5;
+      this.building1.tilePosition.x += direction * this.player.velocity()/11;
+      this.building2.tilePosition.x += direction * this.player.velocity()/9;
+      this.building3.tilePosition.x += direction * this.player.velocity()/7;
+      this.building4.tilePosition.x += direction * this.player.velocity()/5;
+      this.trees.tilePosition.x     += direction * this.player.velocity()/3;
       this.street.tilePosition.x    += direction * this.player.velocity();
     }
   }

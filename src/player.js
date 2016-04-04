@@ -8,7 +8,7 @@ class Player {
   }
 
   create() {
-    this.character = this.game.add.sprite(this.game.world.height / 2, 0, 'miguel', 'idle/0.png');
+    this.character = this.game.add.sprite(this.game.world.height / 2, 0, 'assets', 'miguel/idle/0.png');
     const player = this.character;
 
     this.game.physics.arcade.enable(player);
@@ -19,9 +19,9 @@ class Player {
     player.body.gravity.y = 200;
     player.body.collideWorldBounds = true;
 
-    player.animations.add('walk', Phaser.Animation.generateFrameNames('run/', 0, 5, '.png', 1), 10, true, false);
-    player.animations.add('idle', Phaser.Animation.generateFrameNames('idle/', 0, 3, '.png', 1), 10, true, false);
-    player.animations.add('jump', Phaser.Animation.generateFrameNames('jump/', 0, 3, '.png', 1), 10, true, false);
+    player.animations.add('walk', Phaser.Animation.generateFrameNames('miguel/run/', 0, 5, '.png', 1), 10, true, false);
+    player.animations.add('idle', Phaser.Animation.generateFrameNames('miguel/idle/', 0, 3, '.png', 1), 10, true, false);
+    player.animations.add('jump', Phaser.Animation.generateFrameNames('miguel/jump/', 0, 3, '.png', 1), 10, true, false);
     player.animations.play('idle', 2, true);
 
     this.game.camera.follow(player);
@@ -40,7 +40,6 @@ class Player {
     const player = this.character;
     const cursors = this.game.input.keyboard.createCursorKeys();
     const walking = cursors.left.isDown || cursors.right.isDown
-
 
     player.body.velocity.x = 0;
 
