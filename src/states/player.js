@@ -4,6 +4,7 @@ class PlayerState {
   }
 
   create() {
+    this.cursors = this.game.input.keyboard.createCursorKeys();
     this.player.create();
     this.character = this.player.character;
   }

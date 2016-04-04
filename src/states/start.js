@@ -1,6 +1,6 @@
 class StartState extends PlayerState {
   startGame() {
-    debugger
+    this.game.state.start('go-school')
   }
 
   create() {

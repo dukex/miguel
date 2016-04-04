@@ -28,7 +28,8 @@ class Player {
   }
 
   __jumpping() {
-    return this._player.body.y < 499;
+    const { body: { y, height } } = this.character;
+    return Math.floor(y) !== this.game.height-height-MiguelGame.GROUND_HEIGHT();
   }
 
   __flip(original) {
@@ -58,5 +59,7 @@ class Player {
     if(!(this.__jumpping() || cursors.down.isDown || cursors.up.isDown || walking)) {
       player.animations.play('idle', 2, true);
     }
+
+    // this.game.debug.spriteBounds(player);
   }
 }
