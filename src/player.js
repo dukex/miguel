@@ -15,7 +15,7 @@ class Player {
     player.anchor.setTo(.5, 1)
 
     player.body.bounce.y = 0;
-    player.body.gravity.y = 600;
+    player.body.gravity.y = 200;
     player.body.collideWorldBounds = true;
 
     player.animations.add('walk', Phaser.Animation.generateFrameNames('run/', 0, 5, '.png', 1), 10, true, false);
