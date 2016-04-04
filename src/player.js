@@ -3,42 +3,25 @@ class Player {
     this.game = game;
   }
 
-  moviment(move) {
-    switch(move) {
-      case 'walk':
-        return  [13, 15, 6, 9, 4, 25];
-      case 'swim':
-        return [11,18,20,16,17,10];
-      case 'jump':
-        return [7, 21, 12];
-      case 'idle':
-        return [2,3];
-      case 'atack':
-        return [4,24,14];
-      case 'down':
-        return [19];
-      case 'barman':
-        return [5];
-      case 'scare':
-        return [0]
-      case '(>':
-        return [1]
-    }
+  velocity() {
+    return this._velocity || 5;
   }
 
   create() {
-    this._player = this.game.add.sprite(this.game.world.height / 2, 0, 'miguel');
+    this._player = this.game.add.sprite(this.game.world.height / 2, 0, 'miguel', 'idle/0.png');
     const player = this._player;
     this.game.physics.arcade.enable(player);
+
+    player.anchor.setTo(.5, 1)
 
     player.body.bounce.y = 0;
     player.body.gravity.y = 600;
     player.body.collideWorldBounds = true;
 
-    player.animations.add('walk', this.moviment('walk'), 10, true);
-    player.animations.add('jump', this.moviment('jump'), 10, true);
-    player.animations.add('idle', this.moviment('idle'), 1, true);
-    player.animations.play('idle');
+    player.animations.add('walk', Phaser.Animation.generateFrameNames('run/', 0, 5, '.png', 1), 10, true, false);
+    player.animations.add('idle', Phaser.Animation.generateFrameNames('idle/', 0, 3, '.png', 1), 10, true, false);
+    player.animations.add('jump', Phaser.Animation.generateFrameNames('jump/', 0, 3, '.png', 1), 10, true, false);
+    player.animations.play('idle', 2, true);
   }
 
   __jumpping() {
@@ -46,7 +29,6 @@ class Player {
   }
 
   __flip(original) {
-    this._player.anchor.setTo(.5, .5)
     this._player.scale.x = original ? 1 : -1;
   }
 

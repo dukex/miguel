@@ -1,7 +1,8 @@
 class BootState {
   preload() {
-    this.game.load.atlas('miguel', 'assets/miguel_s.png', 'assets/miguel.json');
     this.game.load.audio('synthcity', ['assets/audio/synthcity.mp3', 'assets/audio/synthcity.ogg', 'assets/audio/synthcity.flp']);
+
+    this.game.load.atlasJSONHash('miguel', 'assets/miguel.png', 'assets/miguel.json');
   }
 
   create() {
