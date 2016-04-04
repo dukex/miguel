@@ -8,8 +8,9 @@ class Player {
   }
 
   create() {
-    this._player = this.game.add.sprite(this.game.world.height / 2, 0, 'miguel', 'idle/0.png');
-    const player = this._player;
+    this.character = this.game.add.sprite(this.game.world.height / 2, 0, 'miguel', 'idle/0.png');
+    const player = this.character;
+
     this.game.physics.arcade.enable(player);
 
     player.anchor.setTo(.5, 1)
@@ -29,11 +30,11 @@ class Player {
   }
 
   __flip(original) {
-    this._player.scale.x = original ? 1 : -1;
+    this.character.scale.x = original ? 1 : -1;
   }
 
   update() {
-    const player = this._player;
+    const player = this.character;
     const cursors = this.game.input.keyboard.createCursorKeys();
 
     player.body.velocity.x = 0;

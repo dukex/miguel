@@ -5,7 +5,7 @@ class PlayerState {
 
   create() {
     this.player.create();
-    this.character = this.player._player;
+    this.character = this.player.character;
   }
 
   update() {
