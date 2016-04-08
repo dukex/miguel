@@ -8,8 +8,8 @@ class Player {
   }
 
   create() {
-    this.character = this.game.add.sprite(this.game.world.height / 2, 0, 'assets', 'miguel/idle/0.png');
-    const player = this.character;
+    this.sprite = this.game.add.sprite(4, 0, 'assets', 'miguel/idle/0.png');
+    const player = this.sprite;
 
     this.game.physics.arcade.enable(player);
 
@@ -28,16 +28,16 @@ class Player {
   }
 
   __jumpping() {
-    const { body: { y, height } } = this.character;
+    const { body: { y, height } } = this.sprite;
     return Math.floor(y) !== this.game.height-height-MiguelGame.GROUND_HEIGHT();
   }
 
   __flip(original) {
-    this.character.scale.x = original ? 1 : -1;
+    this.sprite.scale.x = original ? 1 : -1;
   }
 
   update() {
-    const player = this.character;
+    const player = this.sprite;
     const cursors = this.game.input.keyboard.createCursorKeys();
     const walking = cursors.left.isDown || cursors.right.isDown
 

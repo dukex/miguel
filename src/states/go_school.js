@@ -39,7 +39,7 @@ class GoSchoolState extends PlayerState {
   }
 
   update() {
-    this.game.physics.arcade.collide(this.character, this.street);
+    this.game.physics.arcade.collide(this.player.sprite, this.street);
 
     super.update();
 
