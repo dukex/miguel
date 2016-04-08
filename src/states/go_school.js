@@ -1,16 +1,17 @@
 class GoSchoolState extends Base {
   create() {
-    this.road = this.game.add.group();
-    this.road.enableBody = true;
+    const WORLD_WIDTH = 1920*5;
 
-    this.background = this.game.add.tileSprite(0,0,1920, 1080, '8_background');
-    this.sky        = this.game.add.tileSprite(0,0,1920, 1080, '7_sky');
-    this.building1  = this.game.add.tileSprite(0,0,1920, 1080, '6_buildings_shadow');
-    this.building2  = this.game.add.tileSprite(0,0,1920, 1080, '5_buildings_shadow');
-    this.building3  = this.game.add.tileSprite(0,0,1920, 1080, '4_buildings_shadow');
-    this.building4  = this.game.add.tileSprite(0,0,1920, 1080, '3_buildings');
-    this.trees      = this.game.add.tileSprite(0,0,1920, 1080, '2_trees');
-    this.street     = this.game.add.tileSprite(0,0,1920, 239, '1_street');
+    this.game.world.setBounds(0, 0, WORLD_WIDTH, this.game.height)
+
+    this.background = this.game.add.tileSprite(0, 0, WORLD_WIDTH, 1080, '8_background');
+    this.sky        = this.game.add.sprite(0, 0, '7_sky');
+    this.building1  = this.game.add.tileSprite(0, 0, WORLD_WIDTH, 1080, '6_buildings_shadow');
+    this.building2  = this.game.add.tileSprite(0, 0, WORLD_WIDTH, 1080, '5_buildings_shadow');
+    this.building3  = this.game.add.tileSprite(0, 0, WORLD_WIDTH, 1080, '4_buildings_shadow');
+    this.building4  = this.game.add.tileSprite(0, 0, WORLD_WIDTH, 1080, '3_buildings');
+    this.trees      = this.game.add.tileSprite(0, 0, WORLD_WIDTH, 1080, '2_trees');
+    this.street     = this.game.add.tileSprite(0, 0, WORLD_WIDTH, 239, '1_street');
 
     const ratio = this.scaleImage(this.background)
     this.scaleImage(this.sky)
@@ -25,36 +26,35 @@ class GoSchoolState extends Base {
     this.game.physics.arcade.enable(this.street);
     this.street.body.immovable = true;
 
-    super.create();
+    for (var i = 0; i <= 5; i++) {
+      const x = (this.game.world.height/2)+(i * 400)
+      this.addCreature(new Robot(this.game, x, 0));
+    }
 
-    this.game.camera.follow(this.character);
+    this.game.camera.follow(this.player.sprite, Phaser.Camera.FOLLOW_TOPDOWN_TIGHT );
+
+    super.create();
   }
 
   scaleImage(image, ratio) {
-    if(ratio === undefined) {
-      ratio = this.game.height / image.height;
-    }
+    ratio = ratio === undefined ? this.game.height / image.height : ratio;
     image.scale.setTo(ratio, ratio)
     return ratio;
+  }
+
+  hitRobot(player, robot) {
+    player.kill()
   }
 
   update() {
     this.game.physics.arcade.collide(this.player.sprite, this.street);
 
+    this.creatures.forEach((creature) => {
+      this.game.physics.arcade.collide(this.player.sprite, creature.sprite, this.hitRobot.bind(this));
+      this.game.physics.arcade.collide(creature.sprite, this.street);
+    });
+
     super.update();
-
-    const walking = this.cursors.left.isDown || this.cursors.right.isDown
-    const direction =(this.cursors.left.isDown ? 1 : -1)
-
-    if (walking) {
-      this.sky.tilePosition.x       += direction * 0.5;
-      this.building1.tilePosition.x += direction * this.player.velocity()/11;
-      this.building2.tilePosition.x += direction * this.player.velocity()/9;
-      this.building3.tilePosition.x += direction * this.player.velocity()/7;
-      this.building4.tilePosition.x += direction * this.player.velocity()/5;
-      this.trees.tilePosition.x     += direction * this.player.velocity()/3;
-      this.street.tilePosition.x    += direction * this.player.velocity();
-    }
   }
 }
 

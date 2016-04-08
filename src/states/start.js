@@ -5,6 +5,7 @@ class StartState extends Base {
 
   create() {
     super.create();
+
     this.game.stage.backgroundColor = '#F9F9F9';
 
     const { height, world: { centerX, centerY} } = this.game;
@@ -22,7 +23,7 @@ class StartState extends Base {
     this.game.add.button(centerX, height-(height * 30 / 100), 'start', this.startGame, this, 0,1,2,3)
 
     const music = this.game.add.audio('synthcity');
-    music.play('', 5, true);
+    this.startGame();
   }
 }
 
