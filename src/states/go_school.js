@@ -1,4 +1,4 @@
-class GoSchoolState extends PlayerState {
+class GoSchoolState extends Base {
   create() {
     this.road = this.game.add.group();
     this.road.enableBody = true;

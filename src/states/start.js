@@ -1,4 +1,4 @@
-class StartState extends PlayerState {
+class StartState extends Base {
   startGame() {
     this.game.state.start('go-school')
   }
